@@ -1,0 +1,482 @@
+
+/* =====================================
+   1. RESET
+===================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* =====================================
+   2. PAGE BACKGROUND AND LAYOUT
+===================================== */
+
+body {
+    min-height: 100vh;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    padding: 35px 15px 50px;
+
+    background: linear-gradient(
+        135deg,
+        #ffe0ec,
+        #ffc1d6,
+        #fff0f5
+    );
+
+    font-family: 'Trebuchet MS', sans-serif;
+    text-align: center;
+
+    overflow-x: hidden;
+}
+
+
+/* =====================================
+   3. WELCOME HEADING
+===================================== */
+
+body > h1 {
+    color: #d63370;
+    font-size: 36px;
+    margin-bottom: 15px;
+
+    text-shadow: 0 3px 10px #ff9fbd70;
+}
+
+
+/* =====================================
+   4. WELCOME PARAGRAPH
+===================================== */
+
+body > p {
+    color: #a83260;
+    font-size: 18px;
+    margin-bottom: 25px;
+}
+
+
+/* =====================================
+   5. START BUTTON
+===================================== */
+
+button {
+    padding: 16px 32px;
+
+    background: linear-gradient(
+        135deg,
+        #ff6599,
+        #e60059
+    );
+
+    color: white;
+
+    border: none;
+    border-radius: 35px;
+
+    font-size: 17px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow: 0 8px 25px #d6337050;
+
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: scale(1.08);
+
+    box-shadow: 0 10px 30px #d6337080;
+}
+
+
+/* =====================================
+   6. COUPLE ANIMATION AREA
+===================================== */
+
+.scene {
+    width: 350px;
+    height: 260px;
+
+    position: relative;
+
+    flex-shrink: 0;
+
+    margin: 35px auto 15px;
+}
+
+
+/* =====================================
+   7. GIRL AND BOY IMAGES
+===================================== */
+
+.character {
+    position: absolute;
+
+    bottom: 0;
+
+    width: 130px;
+    height: 170px;
+
+    object-fit: contain;
+
+    z-index: 2;
+
+    transition: opacity 0.5s ease;
+}
+
+.girl {
+    left: 0;
+    transform-origin: bottom center;
+}
+
+.boy {
+    right: 0;
+    transform-origin: bottom center;
+}
+
+
+/* =====================================
+   8. GIRL WALKING ANIMATION
+===================================== */
+
+.scene.started .girl {
+    animation: girlWalk 2s ease-in-out forwards;
+}
+
+@keyframes girlWalk {
+
+    0% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(65px) translateY(-10px);
+    }
+
+    100% {
+        transform: translateX(130px);
+    }
+}
+
+
+/* =====================================
+   9. BOY WALKING ANIMATION
+===================================== */
+
+.scene.started .boy {
+    animation: boyWalk 2s ease-in-out forwards;
+}
+
+@keyframes boyWalk {
+
+    0% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(-65px) translateY(-10px);
+    }
+
+    100% {
+        transform: translateX(-130px);
+    }
+}
+
+
+/* =====================================
+   10. HUGGING ILLUSTRATION
+===================================== */
+
+.hug {
+    position: absolute;
+
+    width: 180px;
+    height: 190px;
+
+    object-fit: contain;
+
+    left: 50%;
+    bottom: 0;
+
+    transform: translateX(-50%) scale(0);
+
+    opacity: 0;
+
+    z-index: 4;
+}
+
+
+/* Hug appears after 2 seconds */
+
+.scene.started .hug {
+    animation: hugging 1.2s ease 2s forwards;
+}
+
+@keyframes hugging {
+
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) scale(0);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1.15);
+    }
+
+    75% {
+        transform: translateX(-50%) scale(0.95);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1);
+    }
+}
+
+
+/* =====================================
+   11. BIG HEART ABOVE THE COUPLE
+===================================== */
+
+.big-heart {
+    position: absolute;
+
+    left: 50%;
+    top: 5px;
+
+    font-size: 55px;
+
+    opacity: 0;
+
+    transform: translateX(-50%) scale(0);
+
+    filter: drop-shadow(0 0 15px #ff174f);
+
+    z-index: 6;
+
+    pointer-events: none;
+}
+
+
+/* Heart appears after the hug */
+
+.scene.started .big-heart {
+    animation:
+        heartAppear 1.5s ease 3.2s forwards,
+        heartGlow 1s ease-in-out 4.7s infinite alternate;
+}
+
+
+@keyframes heartAppear {
+
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) scale(0);
+    }
+
+    70% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1.2);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(-50%) scale(1);
+    }
+}
+
+
+@keyframes heartGlow {
+
+    from {
+        filter: drop-shadow(0 0 10px #ff174f);
+    }
+
+    to {
+        filter: drop-shadow(0 0 30px #ff174f);
+    }
+}
+
+
+/* =====================================
+   12. FLOATING HEARTS
+===================================== */
+
+#floating-hearts {
+    position: fixed;
+
+    inset: 0;
+
+    overflow: hidden;
+
+    pointer-events: none;
+
+    z-index: 10;
+}
+
+
+.floating-heart {
+    position: absolute;
+
+    bottom: -40px;
+
+    font-size: 25px;
+
+    animation: floatUp 4s linear forwards;
+}
+
+
+@keyframes floatUp {
+
+    0% {
+        opacity: 0;
+        transform: translateY(0) rotate(0deg);
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-100vh) rotate(360deg);
+    }
+}
+
+
+/* =====================================
+   13. FINAL LOVE MESSAGE
+===================================== */
+
+.love-message {
+    position: relative;
+
+    width: 100%;
+
+    margin-top: 15px;
+    padding: 20px 10px;
+
+    opacity: 0;
+    visibility: hidden;
+
+    z-index: 11;
+}
+
+
+/* Reveal message */
+
+.love-message.show {
+    animation: messageAppear 1.5s ease forwards;
+}
+
+
+@keyframes messageAppear {
+
+    from {
+        opacity: 0;
+        visibility: visible;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+}
+
+
+/* I LOVE YOU */
+
+.love-message h2 {
+    color: #e60059;
+
+    font-size: 30px;
+
+    margin-bottom: 10px;
+}
+
+
+/* CHATTAEDVA */
+
+.love-message h1 {
+    color: #d63370;
+
+    font-size: 38px;
+
+    margin-bottom: 10px;
+
+    text-shadow: 0 0 15px #ff8fb5;
+}
+
+
+/* Final sweet message */
+
+.love-message p {
+    margin-top: 10px;
+
+    color: #a83260;
+
+    font-size: 18px;
+}
+
+
+/* =====================================
+   14. MOBILE RESPONSIVE DESIGN
+===================================== */
+
+@media (max-width: 480px) {
+
+    body {
+        padding-top: 30px;
+    }
+
+    body > h1 {
+        font-size: 27px;
+    }
+
+    body > p {
+        font-size: 16px;
+    }
+
+    .scene {
+        width: 300px;
+        height: 240px;
+    }
+
+    .character {
+        width: 115px;
+        height: 155px;
+    }
+
+    .hug {
+        width: 160px;
+        height: 170px;
+    }
+
+    .big-heart {
+        font-size: 48px;
+    }
+
+    .love-message h2 {
+        font-size: 25px;
+    }
+
+    .love-message h1 {
+        font-size: 30px;
+    }
+
+    .love-message p {
+        font-size: 16px;
+    }
+}
